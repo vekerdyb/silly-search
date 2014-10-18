@@ -1,0 +1,4 @@
+ipdb
+ipython
+beautifulsoup4
+requests
