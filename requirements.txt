@@ -2,4 +2,4 @@ ipdb
 ipython
 beautifulsoup4
 requests
-unicodecsvg
+unicodecsv

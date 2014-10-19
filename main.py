@@ -1,12 +1,23 @@
-from Index import Index
+import sys
+from Index import SimpleIndex
 
-ind = Index('data.csv')
+index = SimpleIndex('data.csv')
 
-keyword = raw_input('Please enter keyword: ')
+user_quits = False
 
-while keyword:
+while not user_quits:
+
+    keyword = raw_input('Please enter keyword: ').decode(sys.stdin.encoding)
+
+    if keyword == "":
+        user_quits = True
+        continue
+
+    results = index.find_word(keyword)
+
     print 'Results for "%s":' % keyword
-    for number, doc in enumerate(ind.find_word(keyword)):
+
+    for number, doc in enumerate(results):
         print ' %d)\t%s' % (number + 1, doc)
+
     print
-    keyword = raw_input('Please enter keyword: ')
