@@ -26,7 +26,8 @@ class SimpleIndex(object):
         """
         Returns a CSV file handler.
 
-        :param string method: the open() method. 'a' for append, 'w' for write, 'r' for read.
+        :param string method: the open() method. 'a' for append, 'w' for write,
+            'r' for read.
         :return: a csv reader / writer depending on the method
         """
         self.datafile = open(self.filename, method)
@@ -46,7 +47,7 @@ class SimpleIndex(object):
         handler = self._get_handler('a')
         handler.writerow([document_id] + words)
         self.datafile.close()
-        print 'Added "%s" to the index with %d words' % (document_id, len(words))
+        print 'Added %r to the index with %d words' % (document_id, len(words))
 
     def _get_words_from_html(self, filename):
         html_file = open(filename, 'r')
