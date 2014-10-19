@@ -1,7 +1,7 @@
 from glob import glob
 
 from Index import Index
-from HtmlManager import HtmlHandler
+from future.HtmlManager import HtmlHandler
 
 
 index = Index('data.csv')

@@ -1,5 +1,6 @@
 import unicodecsv as csv
-from unicode_helper import remove_non_letters
+from bs4 import BeautifulSoup
+from glob import glob
 
 
 class Index():
@@ -51,9 +52,17 @@ class Index():
         :return: None
         """
         handler = self.get_handler('a')
-        words = [remove_non_letters(w) for w in words]
         handler.writerow([document_id] + words)
         self.datafile.close()
+
+    def add_documents_from_folder(self, pattern):
+        for document in glob(pattern):
+            html_file = open(document, 'r')
+            text = BeautifulSoup(html_file.read()).get_text()
+            words = [w.strip() for w in text.split(' ') if w.strip()]
+            self.add_document(document, words)
+            print "Added %s to the index" % (document, )
+
 
     def delete(self):
         """
@@ -66,13 +75,7 @@ class Index():
 if __name__ == '__main__':
     ind = Index('data.csv')
     ind.delete()
-    ind.add_document('first.html', u'this is the best search engine i could come up with in 20 minutes'.split(' '))
-    ind.add_document('second.html',
-                     u'however it is not a very sophisticated search engine and it is potentially very slow'.split(' '))
-
-    ind.add_document('third.html',
-                     u'BUT IT CAN SEARCH FOR UPPERCASE WORDS AS WELL, ISN\'T THAT JUST AWESOME?'.split(' '))
-
+    ind.add_documents_from_folder('htmls/*.html')
     for word in ['this', 'it', 'search']:
         print 'Results for "%s":' % word
         for number, doc in enumerate(ind.find_word(word)):
