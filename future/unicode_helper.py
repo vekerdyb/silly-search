@@ -2,7 +2,6 @@ def remove_non_letters(word):
     return word.translate(word_unicode_remove)
 
 
-
 class NonLetterRemoval(dict):
 
     def __missing__(self, item):
