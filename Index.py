@@ -56,12 +56,17 @@ class Index():
         self.datafile.close()
 
     def add_documents_from_folder(self, pattern):
+        """
+        Adds several documents matching the pattern.
+        :param string pattern: glob pattern
+        :return: None
+        """
         for document in glob(pattern):
             html_file = open(document, 'r')
             text = BeautifulSoup(html_file.read()).get_text()
             words = [w.strip() for w in text.split(' ') if w.strip()]
             self.add_document(document, words)
-            print "Added %s to the index" % (document, )
+            print 'Added "%s" to the index' % (document, )
 
 
     def delete(self):
