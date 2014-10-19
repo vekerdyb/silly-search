@@ -52,9 +52,7 @@ class SimpleIndex(object):
         html_file = open(filename, 'r')
         soup = BeautifulSoup(html_file.read())
         text_pieces = soup.find_all(['title', 'body'])
-        text = ""
-        for t in text_pieces:
-            text += t.getText().replace('\n', ' ')
+        text = ' '.join(p.getText().replace('\n', ' ') for p in text_pieces)
 
         words = [w.strip() for w in text.split(' ') if w.strip()]
         return words
